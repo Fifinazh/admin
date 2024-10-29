@@ -1,3 +1,10 @@
+<?php
+include 'admin/koneksi.php';
+
+$queryContent= mysqli_query($koneksi, "SELECT * FROM content ORDER BY id DESC");
+$rowContent = mysqli_fetch_assoc($querycontent);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,7 +20,7 @@
 
   <body data-bs-spy="scroll" data-bs-target=".navbar">
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
       <div class="container flex-lg-column">
         <a class="navbar-brand mx-lg-auto mb-lg-4" href="#">
           <span class="h3 fw-bold d-block d-lg-none">Fitria Nur Azizah</span>
@@ -40,20 +47,20 @@
               <a class="nav-link" href="#home">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#services">About</a>
+              <a class="nav-link" href="#about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#work">Resume</a>
+              <a class="nav-link" href="#resume">Resume</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#about">Portfolio</a>
+              <a class="nav-link" href="#portfolio">Portfolio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#reviews">Reviews</a>
+              <a class="nav-link" href="#activity">Activity</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#blog">Blog</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#contact">Contact</a>
             </li>
@@ -72,12 +79,12 @@
             <div class="col-lg-12 text-center">
               <h1 class="display-4 fw-bold">
                 HI THERE!! I AM
-                <span class="text-brand">FITRIA NUR AZIZAH</span>
+                <span class="text-brand"><?php echo $rowContent['judul_content'] ?></span>
               </h1>
               <p class="lead">
-                Web programming is a new thing for me to learn. However, I enjoy every process that I go through, as I believe that every process will not betray the results
+                <?php echo $rowContent['isi_content'] ?>
               </p>
-              <a href="#work" class="btn btn-brand">Explore My Projects!</a>
+              <a href="#portfolio" class="btn btn-brand">Explore My Projects!</a>
               <a href="#" class="link-custom">Call: (021) 3456 7890</a>
             </div>
           </div>
@@ -99,17 +106,13 @@
             <div class="col-md-6 d-flex flex-column justify-content-center" data-aos="fade-up">
               <div class="service p-4 bg-base rounded-4 shadow-effect ">
                 <p>
-                  Someone who comes from a <b>Public Administration</b> graduate with a strong interest in learning new things and always open to new opportunities.  Currently, I am focused on exploring my skills in web programming, starting from basic HTML, CSS, JavaScript and PHP. Although still in the early stages, I’m fully committed to refining my abilities in this field. I believe that my diverse background allows me to bring a unique perspective to every project I take on.
+                  Someone who comes from a Public Administration graduate with a strong interest in learning new things and always open to new opportunities.  Currently, I am focused on exploring my skills in web programming, starting from basic HTML, CSS, JavaScript and PHP. Although still in the early stages, I’m fully committed to refining my abilities in this field. I believe that my diverse background allows me to bring a unique perspective to every project I take on.
                 </p>
-                <!-- <a href="#" class="link-custom">Read More</a> -->
               </div>
             </div>
 
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-              <div class="service p-4 bg-base rounded-4 shadow-effect">
-                <img src="./aset/images/pic-1.jpeg" alt="">
-                <!-- <a href="#" class="link-custom">Read More</a> -->
-              </div>
+            <div class="col-md-6 px-5" data-aos="fade-up" data-aos-delay="300">
+                <img src="./aset/images/pic-1.jpeg" alt="" class="img-about">
             </div>
           </div>
         </div>
@@ -121,7 +124,6 @@
         <div class="container">
           <div class="row pb-4" data-aos="fade-up">
             <div class="col-lg-8">
-              <h6 class="text-brand">ABOUT</h6>
               <h1>My Education & Experience</h1>
             </div>
           </div>
@@ -206,7 +208,7 @@
       <!-- RESUME -->
 
       <!-- PORTFOLIO -->
-      <section id="work" class="full-height px-lg-5">
+      <section id="portfolio" class="full-height px-lg-5">
         <div class="container">
           <div class="row pb-4" data-aos="fade-up">
             <div class="col-lg-8">
@@ -304,7 +306,7 @@
       </section>
 
       <!-- REVIEWS -->
-      <section id="reviews" class="full-height px-lg-5">
+      <section id="activity" class="full-height px-lg-5">
         <div class="container">
           <div class="row pb-4" data-aos="fade-up">
             <div class="col-lg-8">

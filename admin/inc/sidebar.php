@@ -55,7 +55,7 @@
           <a href="user.php" class="pc-link"><span class="pc-micon"><i class="ti ti-user"></i></span><span class="pc-mtext">User</span></a>
         </li>
         <li class="pc-item pc-hasmenu">
-          <a href="about.php" class="pc-link"><span class="pc-micon"><i class="ti ti-wallet"></i></span><span class="pc-mtext">About</span></a>
+          <a href="content.php" class="pc-link"><span class="pc-micon"><i class="ti ti-wallet"></i></span><span class="pc-mtext">Content</span></a>
         </li>
 
         <li class="pc-item pc-caption">

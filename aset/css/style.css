@@ -2,7 +2,7 @@
 
 :root {
      --color-body: #b6cbce;
-    --color-heading: #eef3db;
+    --color-heading: #cae8ef;
     --color-base: #404c6e;
     --color-base2: #0d1736;
     --color-brand: #fff2fc;
@@ -149,6 +149,16 @@ img {
 
 .link-custom:hover::after {
     width: 100%;
+}
+
+.row.gy-4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-about {
+    width: 450px;
 }
 
 /* CARD */

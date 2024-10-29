@@ -5,9 +5,9 @@ include 'koneksi.php';
 
 //jika button simpan di klik
 if (isset($_POST['simpan'])) {
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $judul_content = $_POST['judul_content'];
+    $isi_content = $_POST['isi_content'];
+    
 
     //$_POST: form input name=''
     //$_GET: url ?param='nilai'
@@ -28,34 +28,49 @@ if (isset($_POST['simpan'])) {
             //pindahkan gambar dari tmp folder ke folder yg sudah kita buat
             move_uploaded_file($_FILES['foto']['tmp_name'], 'upload/' . $nama_foto);
 
-            $insert = mysqli_query($koneksi, "INSERT INTO user (nama, email, password, foto) VALUES ('$nama','$email','$password','$nama_foto')");
+            $insert = mysqli_query($koneksi, "INSERT INTO content (judul_content, isi_content, foto) VALUES ('$judul_content','$isi_content','$nama_foto')");
         }
     } else {
-        $insert = mysqli_query($koneksi, "INSERT INTO user (nama, email, password) VALUES ('$nama','$email','$password')");
+        $insert = mysqli_query($koneksi, "INSERT INTO content (judul_content, isi_content) VALUES ('$judul_content','$isi_content')");
     }
 
 
-    header("location:user.php?tambah=berhasil");
+    header("location:content.php?tambah=berhasil");
 }
 
 $id = isset($_GET['edit']) ? $_GET['edit'] : '';
-$queryEdit = mysqli_query($koneksi, "SELECT * FROM user WHERE id='$id'");
+$queryEdit = mysqli_query($koneksi, "SELECT * FROM content WHERE id='$id'");
 $rowEdit = mysqli_fetch_assoc($queryEdit);
 
 //jika button edit di klik
 if (isset($_POST['edit'])) {
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
+    $judul_content = $_POST['judul_content'];
+    $isi_content = $_POST['isi_content'];
 
-    //jika password di isi sama user
-    if ($_POST['password']) {
-        $password = $_POST['password'];
+    // jika user ingin memasukkan gambar
+    if (!empty($_FILES['foto']['name'])) {
+        $nama_foto = $_FILES['foto']['name'];
+        $ukuran_foto = $_FILES['foto']['size'];
+
+        //kita bikin tipe foto: png, jpg, jpeg
+        $ext = array('png', 'jpg', 'jpeg', 'jfif');
+        $extFoto = pathinfo($nama_foto, PATHINFO_EXTENSION);
+
+        if(!in_array($extFoto, $ext)){
+            echo "Maaf, foto tidak dapat diupload karena format tidak sesuai";
+            die;
+        } else {
+            unlink('upload/' . $rowEdit['foto']);
+            move_uploaded_file($_FILES['foto']['tmp_name'], 'upload/' . $nama_foto);
+            // coding ubah/update disini
+            $update = mysqli_query($koneksi, "UPDATE content SET judul_content='$judul_content', isi_content='$isi_content', foto='$nama_foto' WHERE id='$id'");
+            header("location:content.php?ubah=berhasil");
+        }
     } else {
-        $password = $rowEdit['password'];
+        //kondisi kalau user tidak ingin memasukkan gambar
+        $update = mysqli_query($koneksi, "UPDATE content SET judul_content='$judul_content', isi_content='$isi_content' WHERE id='$id'");
+        header("location:content.php?ubah=berhasil");
     }
-
-    $update = mysqli_query($koneksi, "UPDATE user SET nama='$nama',email='$email', password='$password' WHERE id='$id'");
-    header("location:user.php?ubah=berhasil");
 }
 ?>
 
@@ -66,7 +81,7 @@ if (isset($_POST['edit'])) {
 <!-- [Head] start -->
 
 <head>
-    <title>User Page</title>
+    <title>Content Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -116,7 +131,7 @@ if (isset($_POST['edit'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">User Page</h5>
+                                <h5 class="m-b-10">Content Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -135,7 +150,7 @@ if (isset($_POST['edit'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> User</h5>
+                            <h5><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> Content</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
@@ -146,20 +161,14 @@ if (isset($_POST['edit'])) {
                             <form action="" method="post" enctype="multipart/form-data">
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
-                                        <label for="" class="form-label">Nama</label>
-                                        <input type="text" class="form-control" name="nama" placeholder="Masukkan Nama Anda" required value="<?php echo isset($_GET['edit']) ? $rowEdit['nama'] : '' ?>">
+                                        <label for="" class="form-label">Judul Konten</label>
+                                        <input type="text" class="form-control" name="judul_content" placeholder="Masukkan Judul" required value="<?php echo isset($_GET['edit']) ? $rowEdit['judul_content'] : '' ?>">
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="" class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email" placeholder="Masukkan Email Anda" required value="<?php echo isset($_GET['edit']) ? $rowEdit['email'] : '' ?>">
+                                        <label for="" class="form-label">Isi Konten</label>
+                                        <input type="text" class="form-control" name="isi_content" placeholder="Masukkan Isi Konten" required value="<?php echo isset($_GET['edit']) ? $rowEdit['isi_content'] : '' ?>">
                                     </div>
 
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col-sm-6">
-                                        <label for="" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" placeholder="Masukkan Password Anda">
-                                    </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-sm-12">
