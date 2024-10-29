@@ -4,7 +4,7 @@
     <div class="m-header">
       <a href="../dashboard/index.html" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
-        <img src="../assets/dist/assets/images/logo-dark.svg" alt="" class="logo logo-lg">
+        <img src="" alt="" class="">
       </a>
     </div>
     <div class="navbar-content">
@@ -14,7 +14,7 @@
           <i class="ti ti-dashboard"></i>
         </li>
         <li class="pc-item">
-          <a href="../dashboard/index.html" class="pc-link"><span class="pc-micon"><i class="ti ti-dashboard"></i></span><span
+          <a href="index.php" class="pc-link"><span class="pc-micon"><i class="ti ti-dashboard"></i></span><span
               class="pc-mtext">Default</span></a>
         </li>
 
@@ -45,17 +45,17 @@
           <label>Pages</label>
           <i class="ti ti-news"></i>
         </li>
-        <li class="pc-item">
+        <!-- <li class="pc-item">
           <a href="../pages/login-v3.html" class="pc-link">
             <span class="pc-micon"><i class="ti ti-lock"></i></span>
             <span class="pc-mtext">Login</span>
           </a>
+        </li> -->
+        <li class="pc-item pc-hasmenu">
+          <a href="user.php" class="pc-link"><span class="pc-micon"><i class="ti ti-user"></i></span><span class="pc-mtext">User</span></a>
         </li>
-        <li class="pc-item">
-          <a href="../pages/register-v3.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-user-plus"></i></span>
-            <span class="pc-mtext">Register</span>
-          </a>
+        <li class="pc-item pc-hasmenu">
+          <a href="about.php" class="pc-link"><span class="pc-micon"><i class="ti ti-wallet"></i></span><span class="pc-mtext">About</span></a>
         </li>
 
         <li class="pc-item pc-caption">
@@ -104,12 +104,6 @@
           </a>
         </li>
       </ul>
-      <div class="pc-navbar-card bg-primary rounded">
-        <h4 class="text-white">Upgrade To Pro</h4>
-        <p class="text-white opacity-75">To get more features and components</p>
-        <a href="https://codedthemes.com/item/berry-bootstrap-5-admin-template/" target="_blank"
-          class="btn btn-light text-primary">Buy Now</a>
-      </div>
     </div>
   </div>
 </nav>

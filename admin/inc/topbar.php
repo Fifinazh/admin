@@ -1,5 +1,3 @@
-<header class="pc-header">
-  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
 <div class="me-auto pc-mob-drp">
   <ul class="list-unstyled">
     <li class="pc-h-item header-mobile-collapse">
@@ -21,7 +19,7 @@
         <form class="px-3">
           <div class="form-group mb-0 d-flex align-items-center">
             <i data-feather="search"></i>
-            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . ." >
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
           </div>
         </form>
       </div>
@@ -29,7 +27,7 @@
     <li class="pc-h-item d-none d-md-inline-flex">
       <form class="header-search">
         <i data-feather="search" class="icon-search"></i>
-        <input type="search" class="form-control" placeholder="Search here. . ." >
+        <input type="search" class="form-control" placeholder="Search here. . .">
         <button class="btn btn-light-secondary btn-search"><i class="ti ti-adjustments-horizontal"></i></button>
       </form>
     </li>
