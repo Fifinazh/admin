@@ -1,21 +1,14 @@
 <?php
 include 'admin/koneksi.php';
 
-$queryContent= mysqli_query($koneksi, "SELECT * FROM content ORDER BY id DESC");
-$rowContent = mysqli_fetch_assoc($querycontent);
+$queryHome= mysqli_query($koneksi, "SELECT * FROM home ORDER BY id DESC");
+$rowHome = mysqli_fetch_assoc($queryHome);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portofolio</title>
-    <link rel="stylesheet" href="./aset/css/aos.css" />
-    <link rel="stylesheet" href="./aset/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./aset/css/line-awesome.min.css" />
-    <link rel="stylesheet" href="./aset/css/style.css" />
+    <?php include 'inc/head.php' ?>
   </head>
 
   <body data-bs-spy="scroll" data-bs-target=".navbar">
@@ -79,13 +72,13 @@ $rowContent = mysqli_fetch_assoc($querycontent);
             <div class="col-lg-12 text-center">
               <h1 class="display-4 fw-bold">
                 HI THERE!! I AM
-                <span class="text-brand"><?php echo $rowContent['judul_content'] ?></span>
+                <span class="text-brand"><?php echo $rowHome['judul_home'] ?></span>
               </h1>
               <p class="lead">
-                <?php echo $rowContent['isi_content'] ?>
+                <?php echo $rowHome['isi_home'] ?>
               </p>
               <a href="#portfolio" class="btn btn-brand">Explore My Projects!</a>
-              <a href="#" class="link-custom">Call: (021) 3456 7890</a>
+              <a href="<?php echo $rowHome['wa_link'] ?>" class="link-custom"><?php echo $rowHome['nomor_wa'] ?></a>
             </div>
           </div>
         </div>
@@ -93,118 +86,11 @@ $rowContent = mysqli_fetch_assoc($querycontent);
       <!-- //HOME -->
 
       <!-- ABOUT -->
-      <section id="about" class="full-height px-lg-5">
-        <div class="container">
-          <div class="row pb-4" data-aos="fade-up">
-            <div class="col-lg-5">
-                <h6 class="text-brand">Who am i ?</h6>
-              <h1>ABOUT ME</h1>
-            </div>
-          </div>
-
-          <div class="row gy-4">
-            <div class="col-md-6 d-flex flex-column justify-content-center" data-aos="fade-up">
-              <div class="service p-4 bg-base rounded-4 shadow-effect ">
-                <p>
-                  Someone who comes from a Public Administration graduate with a strong interest in learning new things and always open to new opportunities.  Currently, I am focused on exploring my skills in web programming, starting from basic HTML, CSS, JavaScript and PHP. Although still in the early stages, I’m fully committed to refining my abilities in this field. I believe that my diverse background allows me to bring a unique perspective to every project I take on.
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-6 px-5" data-aos="fade-up" data-aos-delay="300">
-                <img src="./aset/images/pic-1.jpeg" alt="" class="img-about">
-            </div>
-          </div>
-        </div>
-      </section>
+      <?php include 'about.php' ?>
       <!-- ABOUT -->
 
       <!-- RESUME -->
-      <section id="resume" class="full-height px-lg-5">
-        <div class="container">
-          <div class="row pb-4" data-aos="fade-up">
-            <div class="col-lg-8">
-              <h1>My Education & Experience</h1>
-            </div>
-          </div>
-
-          <div class="row gy-5">
-            <div class="col-lg-6">
-              <h3 class="mb-4" data-aos="fade-up" data-aos-delay="300">
-                Education Level
-              </h3>
-              <div class="row gy-4">
-                <div class="col-12" data-aos="fade-up" data-aos-delay="600">
-                  <div class="bg-base p-4 rounded-4 shadow-effect">
-                    <h4>Bachelor of Public Administration</h4>
-                    <p class="text-brand mb-2">
-                      STIAMI INSTITUTE (2020 - 2024)
-                    </p>
-                    <p class="mb-0">
-                      <ul>
-                        <li>Skills : Management, Administration, Public Service, Government Tax</li>
-                        <li>BNSP certificate of competency as a Public Policy Analyst</li>
-                        <li>P2MW 2023 awardee organized by Ditjen Diktiristek, Kemendikbudristek in the Services and Trade category </li>
-                        <li>Active in tax paper competition</li>
-                      </ul>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6">
-              <h3 class="mb-4" data-aos="fade-up" data-aos-delay="300">
-                Organizational Experience
-              </h3>
-              <div class="row gy-4">
-                <div class="col-12" data-aos="fade-up" data-aos-delay="600">
-                  <div class="bg-base p-4 rounded-4 shadow-effect">
-                    <h4>Tax Volunteer</h4>
-                    <p class="text-brand mb-2">KPP Pratama Jakarta Menteng Dua, (April, 2022)</p>
-                    <p class="mb-0">
-                      <ul>
-                        <li>Responsible for assisting taxpayers in filing individual income tax returns with forms 1770 and 1770S</li>
-                        <li>Directing taxpayers to apply for EFIN for those who dont have or forget their EFIN </li>
-                        <li>Answering questions from taxpayers about taxation.</li>
-                      </ul>
-                    </p>
-                  </div>
-                </div>
-                
-                <div class="col-12" data-aos="fade-up" data-aos-delay="600">
-                  <div class="bg-base p-4 rounded-4 shadow-effect">
-                    <h4>Jambore Koperasi Nasional (JAMKOPNAS) organized by FKKMI </h4>
-                    <p class="text-brand mb-2"> Public Relations and LO division (Jul-Aug, 2022)</p>
-                    <p class="mb-0">
-                      <ul>
-                        <li>Coordinated requests and delivered official letters to the Pemprov Jakarta and relevant ministries for venue and event permits.</li>
-                        <li>Follow-up with the KEMENPORA regarding the request for trophies and certificates for JAMKOPNAS participants.</li>
-                        <li>Established and maintained communication with government and private sectors for necessary event permissions and sponsorship arrangements.</li>
-                      </ul>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="col-12" data-aos="fade-up" data-aos-delay="600">
-                  <div class="bg-base p-4 rounded-4 shadow-effect">
-                    <h4>Jalaninaja.com (business plan)</h4>
-                    <p class="text-brand mb-2">as a leader, P2MW 2023</p>
-                    <p class="mb-0">
-                      <ul>
-                        <li>Developed a business plan for an electric bike rental service.</li>
-                        <li>Submitted business progress reports through the P2MW 2023 platform.</li>
-                        <li>Established agreements with event organizers to set up promotional booths to enhance brand visibility.</li>
-                      </ul>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
+      <?php include 'resume.php' ?>
       <!-- RESUME -->
 
       <!-- PORTFOLIO -->
@@ -531,8 +417,6 @@ $rowContent = mysqli_fetch_assoc($querycontent);
     </div>
     <!-- //CONTENT WRAPPER -->
 
-    <script src="./aset/js/bootstrap.bundle.min.js"></script>
-    <script src="./aset/js/aos.js"></script>
-    <script src="./aset/js/main.js"></script>
+    <?php include 'inc/js.php' ?>
   </body>
 </html>

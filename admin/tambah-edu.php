@@ -5,67 +5,36 @@ include 'koneksi.php';
 
 //jika button simpan di klik
 if (isset($_POST['simpan'])) {
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $last_edu = $_POST['last_edu'];
+    $level_name = $_POST['level_name'];
+    $isi_edu = $_POST['isi_edu'];
+    
 
-    //$_POST: form input name=''
-    //$_GET: url ?param='nilai'
-    //$_FILES: ngambil nilai dari input type file
-    if (!empty($_FILES['foto']['name'])) {
-        $nama_foto = $_FILES['foto']['name'];
-        $ukuran_foto = $_FILES['foto']['size'];
-
-        //kita bikin tipe foto: png, jpg, jpeg
-        $ext = array('png', 'jpg', 'jpeg', 'jfif');
-        $extFoto = pathinfo($nama_foto, PATHINFO_EXTENSION);
-
-        //JIKA EXTENSI FOTO TIDAK EXT YANG TERDAFTAR DI ARRAY EXT
-        if (!in_array($extFoto, $ext)) {
-            echo "Maaf, foto tidak dapat diupload karena format tidak sesuai";
-            die;
-        } else {
-            //pindahkan gambar dari tmp folder ke folder yg sudah kita buat
-            move_uploaded_file($_FILES['foto']['tmp_name'], 'upload/' . $nama_foto);
-
-            $insert = mysqli_query($koneksi, "INSERT INTO user (nama, email, password, foto) VALUES ('$nama','$email','$password','$nama_foto')");
-        }
-    } else {
-        $insert = mysqli_query($koneksi, "INSERT INTO user (nama, email, password) VALUES ('$nama','$email','$password')");
-    }
-
-
-    header("location:user.php?tambah=berhasil");
+    $insert = mysqli_query($koneksi, "INSERT INTO education (last_edu, level_name, isi_edu) VALUES ('$last_edu','$level_name','$isi_edu')");
+    header("location:edu.php?tambah=berhasil");
 }
 
 $id = isset($_GET['edit']) ? $_GET['edit'] : '';
-$queryEdit = mysqli_query($koneksi, "SELECT * FROM user WHERE id='$id'");
+$queryEdit = mysqli_query($koneksi, "SELECT * FROM education WHERE id='$id'");
 $rowEdit = mysqli_fetch_assoc($queryEdit);
 
 //jika button edit di klik
 if (isset($_POST['edit'])) {
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
+    $last_edu = $_POST['last_edu'];
+    $level_name = $_POST['level_name'];
+    $isi_edu = $_POST['isi_edu'];
 
-    //jika password di isi sama user
-    if ($_POST['password']) {
-        $password = $_POST['password'];
-    } else {
-        $password = $rowEdit['password'];
-    }
-
-    $update = mysqli_query($koneksi, "UPDATE user SET nama='$nama',email='$email', password='$password' WHERE id='$id'");
-    header("location:user.php?ubah=berhasil");
+    $update = mysqli_query($koneksi, "UPDATE education SET last_edu='$last_edu', level_name='$level_name', isi_edu='$isi_edu' WHERE id='$id'");
+    header("location:edu.php?ubah=berhasil");
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <!-- [Head] start -->
 
 <head>
-    <title>User Page</title>
+    <title>Edu Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -115,7 +84,7 @@ if (isset($_POST['edit'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">User Page</h5>
+                                <h5 class="m-b-10">Edu Settings Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -134,7 +103,7 @@ if (isset($_POST['edit'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> User</h5>
+                            <h5><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> Education</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
@@ -145,25 +114,16 @@ if (isset($_POST['edit'])) {
                             <form action="" method="post" enctype="multipart/form-data">
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
-                                        <label for="" class="form-label">Nama</label>
-                                        <input type="text" class="form-control" name="nama" placeholder="Masukkan Nama Anda" required value="<?php echo isset($_GET['edit']) ? $rowEdit['nama'] : '' ?>">
+                                        <label for="" class="form-label">Pendidikan Terakhir</label>
+                                        <input type="text" class="form-control" name="last_edu" placeholder="Masukkan Pendidikan Terakhir Anda" required value="<?php echo isset($_GET['edit']) ? $rowEdit['last_edu'] : '' ?>">
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="" class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email" placeholder="Masukkan Email Anda" required value="<?php echo isset($_GET['edit']) ? $rowEdit['email'] : '' ?>">
+                                        <label for="" class="form-label">Nama Institusi</label>
+                                        <input type="text" class="form-control" name="level_name" placeholder="Masukkan Nama Institusi Anda" required value="<?php echo isset($_GET['edit']) ? $rowEdit['level_name'] : '' ?>">
                                     </div>
-
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col-sm-6">
-                                        <label for="" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" placeholder="Masukkan Password Anda">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col-sm-12">
-                                        <label for="" class="form-label">Foto</label>
-                                        <input type="file" name="foto">
+                                    <div class="col-sm-6 mt-3">
+                                        <label for="" class="form-label">Kegiatan</label>
+                                        <textarea name="isi_edu" id="" class="mySummernote form-control"><?php echo isset($_GET['edit']) ? $rowEdit['isi_edu'] : '' ?></textarea>
                                     </div>
                                 </div>
                                 <div class="mb-3">

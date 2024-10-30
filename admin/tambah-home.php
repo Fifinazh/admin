@@ -3,17 +3,32 @@ session_start();
 
 include 'koneksi.php';
 
-$query = mysqli_query($koneksi, "SELECT * FROM content");
+//jika button simpan di klik
+if (isset($_POST['simpan'])) {
+    $judul_home = $_POST['judul_home'];
+    $isi_home = $_POST['isi_home'];
+    $nomor_wa = $_POST['nomor_wa'];
+    $wa_link = $_POST['wa_link'];
 
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete']; //mengambil nilai param
 
-    //query / perintah hapus
-    $delete = mysqli_query($koneksi, "DELETE FROM content WHERE id ='$id'");
-    header("location:content.php?hapus=berhasil");
+    $insert = mysqli_query($koneksi, "INSERT INTO home (judul_home, isi_home, nomor_wa, wa_link) VALUES ('$judul_home','$isi_home','$nomor_wa','$wa_link')");
+    header("location:home.php?tambah=berhasil");
 }
-?>
 
+$id = isset($_GET['edit']) ? $_GET['edit'] : '';
+$queryEdit = mysqli_query($koneksi, "SELECT * FROM home WHERE id='$id'");
+$rowEdit = mysqli_fetch_assoc($queryEdit);
+
+//jika button edit di klik
+if (isset($_POST['edit'])) {
+    $judul_home = $_POST['judul_home'];
+    $isi_home = $_POST['isi_home'];
+    $nomor_wa = $_POST['nomor_wa'];
+    $wa_link = $_POST['wa_link'];
+
+    $update = mysqli_query($koneksi, "UPDATE home SET judul_home='$judul_home', isi_home='$isi_home', nomor_wa='$nomor_wa', wa_link='$wa_link' WHERE id='$id'");
+    header("location:home.php?ubah=berhasil");
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +36,7 @@ if (isset($_GET['delete'])) {
 <!-- [Head] start -->
 
 <head>
-    <title>Content Page</title>
+    <title>Home Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -71,7 +86,7 @@ if (isset($_GET['delete'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Content Page</h5>
+                                <h5 class="m-b-10">Home Settings Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -90,45 +105,37 @@ if (isset($_GET['delete'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data Content</h5>
+                            <h5><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> Home</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
-                                <div class="alert alert-danger" role="alert">
+                                <div class="alert alert-success" role="alert">
                                     Data berhasil dihapus
                                 </div>
                             <?php endif ?>
-                            <div align="right" class="mb-3">
-                                <a href="tambah-content.php" class="btn btn-primary">Tambah</a>
-                            </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Judul Konten</th>
-                                        <th>Isi Konten</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    while ($row = mysqli_fetch_assoc($query)) : ?>
-                                        <tr>
-                                            <td><?php echo $no++ ?></td>
-                                            <td><?php echo $row['judul_content'] ?></td>
-                                            <td><?php echo $row['isi_content'] ?></td>
-                                            <td>
-                                                <a href="tambah-content.php?edit=<?php echo $row['id'] ?>" class="btn btn-success btn-sm">
-                                                    <i class="ti ti-pencil"></i>
-                                                </a>
-                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="content.php?delete=<?php echo $row['id'] ?>" class="btn btn-danger btn-sm">
-                                                    <i class="ti ti-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endwhile ?>
-                                </tbody>
-                            </table>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="mb-3 row">
+                                    <div class="col-sm-6">
+                                        <label for="" class="form-label">Judul Home Page</label>
+                                        <input type="text" class="form-control" name="judul_home" placeholder="Masukkan Judul" required value="<?php echo isset($_GET['edit']) ? $rowEdit['judul_home'] : '' ?>">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="" class="form-label">Isi Home page</label>
+                                        <textarea name="isi_home" id="" class="mySummernote form-control"><?php echo isset($_GET['edit']) ? $rowEdit['isi_home'] : '' ?></textarea>
+                                    </div>
+                                    <div class="col-sm-6 mt-3">
+                                        <label for="" class="form-label">Nomor Whatsapp</label>
+                                        <input type="text" class="form-control" name="nomor_wa" placeholder="Masukkan Nomor Whatsapp" required value="<?php echo isset($_GET['edit']) ? $rowEdit['nomor_wa'] : '' ?>">
+                                    </div>
+                                    <div class="col-sm-6 mt-3">
+                                        <label for="" class="form-label">Link Whatsapp</label>
+                                        <input type="url" class="form-control" name="wa_link" placeholder="Masukkan Link Whatsapp" required value="<?php echo isset($_GET['edit']) ? $rowEdit['wa_link'] : '' ?>">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'simpan' ?>" type="submit">Simpan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

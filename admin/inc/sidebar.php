@@ -55,33 +55,18 @@
           <a href="user.php" class="pc-link"><span class="pc-micon"><i class="ti ti-user"></i></span><span class="pc-mtext">User</span></a>
         </li>
         <li class="pc-item pc-hasmenu">
-          <a href="content.php" class="pc-link"><span class="pc-micon"><i class="ti ti-wallet"></i></span><span class="pc-mtext">Content</span></a>
-        </li>
-
-        <li class="pc-item pc-caption">
-          <label>Other</label>
-          <i class="ti ti-brand-chrome"></i>
+          <a href="home.php" class="pc-link"><span class="pc-micon"><i class="ti ti-smart-home"></i></span><span class="pc-mtext">Home Page</span></a>
         </li>
         <li class="pc-item pc-hasmenu">
-          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Menu
-              levels</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+          <a href="about.php" class="pc-link"><span class="pc-micon"><i class="ti ti-license"></i></span><span class="pc-mtext">About Page</span></a>
+        </li>
+
+        <li class="pc-item pc-hasmenu">
+          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Resume Page</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
           <ul class="pc-submenu">
-            <li class="pc-item"><a class="pc-link" href="#!">Level 2.1</a></li>
-            <li class="pc-item pc-hasmenu">
-              <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-              <ul class="pc-submenu">
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
-                <li class="pc-item pc-hasmenu">
-                  <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                  <ul class="pc-submenu">
-                    <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
-                    <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="pc-item pc-hasmenu">
+            <li class="pc-item"><a class="pc-link" href="edu.php">Education</a></li>
+            <li class="pc-item pc-hasmenu"><a href="exp.php" class="pc-link">Organizational Experience</a></li>
+            <!-- <li class="pc-item pc-hasmenu">
               <a href="#!" class="pc-link">Level 2.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
               <ul class="pc-submenu">
                 <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
@@ -94,8 +79,12 @@
                   </ul>
                 </li>
               </ul>
-            </li>
+            </li> -->
           </ul>
+        </li>
+        <li class="pc-item pc-caption">
+          <label>Other</label>
+          <i class="ti ti-brand-chrome"></i>
         </li>
         <li class="pc-item">
           <a href="../other/sample-page.html" class="pc-link">

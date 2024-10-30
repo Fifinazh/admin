@@ -3,14 +3,14 @@ session_start();
 
 include 'koneksi.php';
 
-$queryUser = mysqli_query($koneksi, "SELECT * FROM user");
+$queryExp = mysqli_query($koneksi, "SELECT * FROM experience");
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete']; //mengambil nilai param
 
     //query / perintah hapus
-    $delete = mysqli_query($koneksi, "DELETE FROM user WHERE id ='$id'");
-    header("location:user.php?hapus=berhasil");
+    $delete = mysqli_query($koneksi, "DELETE FROM experience WHERE id ='$id'");
+    header("location:exp.php?hapus=berhasil");
 }
 ?>
 
@@ -21,7 +21,7 @@ if (isset($_GET['delete'])) {
 <!-- [Head] start -->
 
 <head>
-    <title>User Page</title>
+    <title>Experience Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -71,7 +71,7 @@ if (isset($_GET['delete'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">User Settings Page</h5>
+                                <h5 class="m-b-10">Experience Settings Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -90,7 +90,7 @@ if (isset($_GET['delete'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data User</h5>
+                            <h5>Data Experience</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
@@ -99,29 +99,31 @@ if (isset($_GET['delete'])) {
                                 </div>
                             <?php endif ?>
                             <div align="right" class="mb-3">
-                                <a href="tambah-user.php" class="btn btn-primary">Tambah</a>
+                                <a href="tambah-exp.php" class="btn btn-primary">Tambah</a>
                             </div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
+                                        <th>Jenis Pengalaman</th>
+                                        <th>Jabatan dan Tempat Pengalaman</th>
+                                        <th>Kegiatan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1;
-                                    while ($rowUser = mysqli_fetch_assoc($queryUser)) : ?>
+                                    while ($rowExp = mysqli_fetch_assoc($queryExp)) : ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
-                                            <td><?php echo $rowUser['nama'] ?></td>
-                                            <td><?php echo $rowUser['email'] ?></td>
+                                            <td><?php echo $rowExp['nama_exp'] ?></td>
+                                            <td><?php echo $rowExp['tempat_exp'] ?></td>
+                                            <td><?php echo $rowExp['kegiatan'] ?></td>
                                             <td>
-                                                <a href="tambah-user.php?edit=<?php echo $rowUser['id'] ?>" class="btn btn-success btn-sm">
+                                                <a href="tambah-exp.php?edit=<?php echo $rowExp['id'] ?>" class="btn btn-success btn-sm">
                                                     <i class="ti ti-pencil"></i>
                                                 </a>
-                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="user.php?delete=<?php echo $rowUser['id'] ?>" class="btn btn-danger btn-sm">
+                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="exp.php?delete=<?php echo $rowExp['id'] ?>" class="btn btn-danger btn-sm">
                                                     <i class="ti ti-trash"></i>
                                                 </a>
                                             </td>

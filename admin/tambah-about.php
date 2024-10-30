@@ -5,9 +5,8 @@ include 'koneksi.php';
 
 //jika button simpan di klik
 if (isset($_POST['simpan'])) {
-    $judul_content = $_POST['judul_content'];
-    $isi_content = $_POST['isi_content'];
-    
+    $isi_about = $_POST['isi_about'];
+
 
     //$_POST: form input name=''
     //$_GET: url ?param='nilai'
@@ -28,24 +27,23 @@ if (isset($_POST['simpan'])) {
             //pindahkan gambar dari tmp folder ke folder yg sudah kita buat
             move_uploaded_file($_FILES['foto']['tmp_name'], 'upload/' . $nama_foto);
 
-            $insert = mysqli_query($koneksi, "INSERT INTO content (judul_content, isi_content, foto) VALUES ('$judul_content','$isi_content','$nama_foto')");
+            $insert = mysqli_query($koneksi, "INSERT INTO about (isi_about, foto) VALUES ('$isi_about','$nama_foto')");
         }
     } else {
-        $insert = mysqli_query($koneksi, "INSERT INTO content (judul_content, isi_content) VALUES ('$judul_content','$isi_content')");
+        $insert = mysqli_query($koneksi, "INSERT INTO about (isi_about) VALUES ('$isi_about')");
     }
 
 
-    header("location:content.php?tambah=berhasil");
+    header("location:about.php?tambah=berhasil");
 }
 
 $id = isset($_GET['edit']) ? $_GET['edit'] : '';
-$queryEdit = mysqli_query($koneksi, "SELECT * FROM content WHERE id='$id'");
+$queryEdit = mysqli_query($koneksi, "SELECT * FROM about WHERE id='$id'");
 $rowEdit = mysqli_fetch_assoc($queryEdit);
 
 //jika button edit di klik
 if (isset($_POST['edit'])) {
-    $judul_content = $_POST['judul_content'];
-    $isi_content = $_POST['isi_content'];
+    $isi_about = $_POST['isi_about'];
 
     // jika user ingin memasukkan gambar
     if (!empty($_FILES['foto']['name'])) {
@@ -56,20 +54,20 @@ if (isset($_POST['edit'])) {
         $ext = array('png', 'jpg', 'jpeg', 'jfif');
         $extFoto = pathinfo($nama_foto, PATHINFO_EXTENSION);
 
-        if(!in_array($extFoto, $ext)){
+        if (!in_array($extFoto, $ext)) {
             echo "Maaf, foto tidak dapat diupload karena format tidak sesuai";
             die;
         } else {
             unlink('upload/' . $rowEdit['foto']);
             move_uploaded_file($_FILES['foto']['tmp_name'], 'upload/' . $nama_foto);
             // coding ubah/update disini
-            $update = mysqli_query($koneksi, "UPDATE content SET judul_content='$judul_content', isi_content='$isi_content', foto='$nama_foto' WHERE id='$id'");
-            header("location:content.php?ubah=berhasil");
+            $update = mysqli_query($koneksi, "UPDATE about SET isi_about='$isi_about', foto='$nama_foto' WHERE id='$id'");
+            header("location:about.php?ubah=berhasil");
         }
     } else {
         //kondisi kalau user tidak ingin memasukkan gambar
-        $update = mysqli_query($koneksi, "UPDATE content SET judul_content='$judul_content', isi_content='$isi_content' WHERE id='$id'");
-        header("location:content.php?ubah=berhasil");
+        $update = mysqli_query($koneksi, "UPDATE about SET isi_about='$isi_about' WHERE id='$id'");
+        header("location:about.php?ubah=berhasil");
     }
 }
 ?>
@@ -81,7 +79,7 @@ if (isset($_POST['edit'])) {
 <!-- [Head] start -->
 
 <head>
-    <title>Content Page</title>
+    <title>About Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -131,7 +129,7 @@ if (isset($_POST['edit'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Content Page</h5>
+                                <h5 class="m-b-10">About Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -150,7 +148,7 @@ if (isset($_POST['edit'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> Content</h5>
+                            <h5><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> About</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
@@ -161,14 +159,9 @@ if (isset($_POST['edit'])) {
                             <form action="" method="post" enctype="multipart/form-data">
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
-                                        <label for="" class="form-label">Judul Konten</label>
-                                        <input type="text" class="form-control" name="judul_content" placeholder="Masukkan Judul" required value="<?php echo isset($_GET['edit']) ? $rowEdit['judul_content'] : '' ?>">
+                                        <label for="" class="form-label">Isi About</label>
+                                        <textarea name="isi_about" id="" class="mySummernote form-control"><?php echo isset($_GET['edit']) ? $rowEdit['isi_about'] : '' ?></textarea>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <label for="" class="form-label">Isi Konten</label>
-                                        <input type="text" class="form-control" name="isi_content" placeholder="Masukkan Isi Konten" required value="<?php echo isset($_GET['edit']) ? $rowEdit['isi_content'] : '' ?>">
-                                    </div>
-
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col-sm-12">
