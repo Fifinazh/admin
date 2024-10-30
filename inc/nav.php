@@ -3,10 +3,10 @@
     <div class="container flex-lg-column">
         <a class="navbar-brand mx-lg-auto mb-lg-4" href="#">
             <span class="h3 fw-bold d-block d-lg-none">Fitria Nur Azizah</span>
-            <img
+            <!-- <img
                 src="./aset/images/my-profile.jpg"
                 class="d-none d-lg-block rounded-circle"
-                alt="" />
+                alt="" /> -->
         </a>
         <button
             class="navbar-toggler"

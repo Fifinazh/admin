@@ -60,12 +60,12 @@
         <li class="pc-item pc-hasmenu">
           <a href="about.php" class="pc-link"><span class="pc-micon"><i class="ti ti-license"></i></span><span class="pc-mtext">About Page</span></a>
         </li>
-
         <li class="pc-item pc-hasmenu">
           <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Resume Page</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
           <ul class="pc-submenu">
             <li class="pc-item"><a class="pc-link" href="edu.php">Education</a></li>
             <li class="pc-item pc-hasmenu"><a href="exp.php" class="pc-link">Organizational Experience</a></li>
+        
             <!-- <li class="pc-item pc-hasmenu">
               <a href="#!" class="pc-link">Level 2.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
               <ul class="pc-submenu">
@@ -81,6 +81,15 @@
               </ul>
             </li> -->
           </ul>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="portfolio.php" class="pc-link"><span class="pc-micon"><i class="ti ti-file-report"></i></span><span class="pc-mtext">Portfolio Page</span></a>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="activity.php" class="pc-link"><span class="pc-micon"><i class="ti ti-camera-selfie"></i></span><span class="pc-mtext">Activity Page</span></a>
+        </li>
+        <li class="pc-item pc-hasmenu">
+          <a href="contact.php" class="pc-link"><span class="pc-micon"><i class="ti ti-camera-selfie"></i></span><span class="pc-mtext">Contact Page</span></a>
         </li>
         <li class="pc-item pc-caption">
           <label>Other</label>

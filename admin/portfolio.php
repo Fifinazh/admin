@@ -3,14 +3,14 @@ session_start();
 
 include 'koneksi.php';
 
-$queryAbout = mysqli_query($koneksi, "SELECT * FROM about");
+$queryPort = mysqli_query($koneksi, "SELECT * FROM portfolio");
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete']; //mengambil nilai param
 
     //query / perintah hapus
-    $delete = mysqli_query($koneksi, "DELETE FROM user WHERE id ='$id'");
-    header("location:about.php?hapus=berhasil");
+    $delete = mysqli_query($koneksi, "DELETE FROM portfolio WHERE id ='$id'");
+    header("location:portfolio.php?hapus=berhasil");
 }
 ?>
 
@@ -21,7 +21,7 @@ if (isset($_GET['delete'])) {
 <!-- [Head] start -->
 
 <head>
-    <title>About Page</title>
+    <title>Portfolio Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -71,7 +71,7 @@ if (isset($_GET['delete'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">About Settings Page</h5>
+                                <h5 class="m-b-10">Portofolio Settings Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -90,7 +90,7 @@ if (isset($_GET['delete'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data About</h5>
+                            <h5>Data Portfolio</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
@@ -99,29 +99,31 @@ if (isset($_GET['delete'])) {
                                 </div>
                             <?php endif ?>
                             <div align="right" class="mb-3">
-                                <a href="tambah-about.php" class="btn btn-primary">Tambah</a>
+                                <a href="tambah-portfolio.php" class="btn btn-primary">Tambah</a>
                             </div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Isi</th>
+                                        <th>Judul Project</th>
+                                        <th>Keterangan Project</th>
                                         <th>Foto</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1;
-                                    while ($rowAbout = mysqli_fetch_assoc($queryAbout)) : ?>
+                                    while ($rowPort = mysqli_fetch_assoc($queryPort)) : ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
-                                            <td><?php echo $rowAbout['isi_about'] ?></td>
-                                            <td><img src="upload/<?php echo $rowAbout['foto'] ?>" alt=""></td>
+                                            <td><?php echo $rowPort['judul_project'] ?></td>
+                                            <td><?php echo $rowPort['ket_project'] ?></td>
+                                            <td><img src="upload/<?php echo $rowPort['foto'] ?>" alt=""></td>
                                             <td>
-                                                <a href="tambah-about.php?edit=<?php echo $rowAbout['id'] ?>" class="btn btn-success btn-sm">
+                                                <a href="tambah-portfolio.php?edit=<?php echo $rowPort['id'] ?>" class="btn btn-success btn-sm">
                                                     <i class="ti ti-pencil"></i>
                                                 </a>
-                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="about.php?delete=<?php echo $rowAbout['id'] ?>" class="btn btn-danger btn-sm">
+                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="portfolio.php?delete=<?php echo $rowPort['id'] ?>" class="btn btn-danger btn-sm">
                                                     <i class="ti ti-trash"></i>
                                                 </a>
                                             </td>

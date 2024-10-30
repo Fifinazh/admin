@@ -1,27 +1,48 @@
-<?php
+<<?php
 session_start();
-
 include 'koneksi.php';
 
-$queryAbout = mysqli_query($koneksi, "SELECT * FROM about");
 
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete']; //mengambil nilai param
+$ids = $_GET['pesanId'];
+$selectContact = mysqli_query($koneksi, "SELECT * FROM contact WHERE id = $ids");
+$rowContact = mysqli_fetch_assoc($selectContact);
 
-    //query / perintah hapus
-    $delete = mysqli_query($koneksi, "DELETE FROM user WHERE id ='$id'");
-    header("location:about.php?hapus=berhasil");
+if (isset($_GET['pesanId'])) {
+    $id = $_GET['pesanId'];
+    $selectContact = mysqli_query($koneksi, "SELECT * FROM contact WHERE id = $id");
+    $rowContact = mysqli_fetch_assoc($selectContact);
 }
+
+
+if (isset($_POST['kirim-bosss']) && isset($_GET['pesanId'])) {
+    $id = $_GET['pesanId'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $balaspesan = $_POST['balaspesan'];
+
+    $header = "From: fitrianurzh01@gmail.com" . "\r\n" .
+                "Reply-To: fitrianurzh@gmail.com" . "\r\n" .
+                "Content-Type: text/plain; charset=UTF8" ."\r\n" .
+                "MIME-Version: 1.0" . "\r\n";
+    
+    if(mail($email, $subject, $balaspesan, $header)) {
+        echo "Berhasil";
+        header("Location: contact-admin.php?status=berhasil-terkirim");
+        exit();
+    } else {
+        echo "Gagal";
+        header("Location: kirim-pesan.php?status=gagal-terkirim");
+    }
+}
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <!-- [Head] start -->
 
 <head>
-    <title>About Page</title>
+    <title>Contact Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -71,7 +92,7 @@ if (isset($_GET['delete'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">About Settings Page</h5>
+                                <h5 class="m-b-10">User Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -90,45 +111,39 @@ if (isset($_GET['delete'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data About</h5>
+                            <h5>Balas Pesan</h5>
                         </div>
                         <div class="card-body">
-                            <?php if (isset($_GET['hapus'])): ?>
-                                <div class="alert alert-danger" role="alert">
-                                    Data berhasil dihapus
+                            <ul style="list-style-type: '-'">
+                                <li>
+                                    <pre>Name : <?php echo $rowContact['nama'] ?></pre>
+                                </li>
+                                <li>
+                                    <pre>Email : <?php echo $rowContact['email'] ?></pre>
+                                </li>
+                                <li>
+                                    <pre>Subject : <?php echo $rowContact['subject'] ?></pre>
+                                </li>
+                                <li>
+                                    <pre>Message : <?php echo $rowContact['message'] ?></pre>
+                                </li>
+                            </ul>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="mt-3">
+                                    <input type="text" name="email" value="<?php echo $rowContact['email'] ?>">
                                 </div>
-                            <?php endif ?>
-                            <div align="right" class="mb-3">
-                                <a href="tambah-about.php" class="btn btn-primary">Tambah</a>
-                            </div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Isi</th>
-                                        <th>Foto</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    while ($rowAbout = mysqli_fetch_assoc($queryAbout)) : ?>
-                                        <tr>
-                                            <td><?php echo $no++ ?></td>
-                                            <td><?php echo $rowAbout['isi_about'] ?></td>
-                                            <td><img src="upload/<?php echo $rowAbout['foto'] ?>" alt=""></td>
-                                            <td>
-                                                <a href="tambah-about.php?edit=<?php echo $rowAbout['id'] ?>" class="btn btn-success btn-sm">
-                                                    <i class="ti ti-pencil"></i>
-                                                </a>
-                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="about.php?delete=<?php echo $rowAbout['id'] ?>" class="btn btn-danger btn-sm">
-                                                    <i class="ti ti-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endwhile ?>
-                                </tbody>
-                            </table>
+                                <div class="mt-3">
+                                    <label class="form-label" for="">Subject</label>
+                                    <input type="text" class="form-control" name="subject" required>
+                                </div>
+                                <div class="mt-3">
+                                    <label for="" class="form-label">Balas Pesan</label>
+                                    <textarea class="form-control" name="balaspesan" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" name="kirim-bosss">Kirim Pesan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

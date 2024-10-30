@@ -3,14 +3,31 @@ session_start();
 
 include 'koneksi.php';
 
-$queryAbout = mysqli_query($koneksi, "SELECT * FROM about");
+// Jalankan query
+$queryContact = mysqli_query($koneksi, "SELECT * FROM contact WHERE deleted_at IS NULL");
 
+// Periksa apakah query berhasil dijalankan
+if (!$queryContact) {
+    die("Query gagal: " . mysqli_error($koneksi));
+}
+
+// Jika parameter ?delete ada
 if (isset($_GET['delete'])) {
-    $id = $_GET['delete']; //mengambil nilai param
+    $id = $_GET['delete']; // Mengambil nilai parameter
 
-    //query / perintah hapus
-    $delete = mysqli_query($koneksi, "DELETE FROM user WHERE id ='$id'");
-    header("location:about.php?hapus=berhasil");
+    // Pastikan id yang diterima valid untuk menghindari SQL Injection
+    $id = mysqli_real_escape_string($koneksi, $id);
+
+    // Jalankan query delete
+    $delete = mysqli_query($koneksi, "DELETE FROM contact WHERE id ='$id'");
+
+    // Periksa apakah query delete berhasil
+    if ($delete) {
+        header("location:contact.php?hapus=berhasil");
+        exit(); // Hentikan eksekusi setelah redirect
+    } else {
+        echo "Gagal menghapus data: " . mysqli_error($koneksi);
+    }
 }
 ?>
 
@@ -21,7 +38,7 @@ if (isset($_GET['delete'])) {
 <!-- [Head] start -->
 
 <head>
-    <title>About Page</title>
+    <title>User Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -71,7 +88,7 @@ if (isset($_GET['delete'])) {
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">About Settings Page</h5>
+                                <h5 class="m-b-10">Contact Settings Page</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
@@ -90,7 +107,7 @@ if (isset($_GET['delete'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data About</h5>
+                            <h5>Data User</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
@@ -99,34 +116,43 @@ if (isset($_GET['delete'])) {
                                 </div>
                             <?php endif ?>
                             <div align="right" class="mb-3">
-                                <a href="tambah-about.php" class="btn btn-primary">Tambah</a>
+                                <a href="kirim-pesan.php" class="btn btn-primary">Tambah</a>
                             </div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Isi</th>
-                                        <th>Foto</th>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th>Subject</th>
+                                        <th>Pesan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1;
-                                    while ($rowAbout = mysqli_fetch_assoc($queryAbout)) : ?>
+                                    <?php 
+                                    $rowContacts = [];
+                                    if ($queryContact) {
+                                        $rowContacts = mysqli_fetch_all($queryContact, MYSQLI_ASSOC);
+                                    }
+                                    $no = 1;
+                                    foreach ($rowContacts as $rowContact) { ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
-                                            <td><?php echo $rowAbout['isi_about'] ?></td>
-                                            <td><img src="upload/<?php echo $rowAbout['foto'] ?>" alt=""></td>
+                                            <td><?php echo $rowContact['nama'] ?></td>
+                                            <td><?php echo $rowContact['email'] ?></td>
+                                            <td><?php echo $rowContact['subject'] ?></td>
+                                            <td><?php echo $rowContact['message'] ?></td>
                                             <td>
-                                                <a href="tambah-about.php?edit=<?php echo $rowAbout['id'] ?>" class="btn btn-success btn-sm">
-                                                    <i class="ti ti-pencil"></i>
+                                                <a href="kirim-pesan.php?pesanId=<?php echo $rowContact['id'] ?>" class="btn btn-success btn-sm">
+                                                    <span>Balas Pesan</span>
                                                 </a>
-                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="about.php?delete=<?php echo $rowAbout['id'] ?>" class="btn btn-danger btn-sm">
-                                                    <i class="ti ti-trash"></i>
+                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="kirim-pesan.php?delete=<?php echo $rowContact['id'] ?>" class="btn btn-danger btn-sm">
+                                                    <span class="tf-icon bx bx-trash"></span>
                                                 </a>
                                             </td>
                                         </tr>
-                                    <?php endwhile ?>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
