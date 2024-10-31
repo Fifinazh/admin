@@ -2,34 +2,21 @@
 session_start();
 
 include 'koneksi.php';
-
-// Jalankan query
+// munculkan / pilih sebuah atau semua kolom dari table user
 $queryContact = mysqli_query($koneksi, "SELECT * FROM contact WHERE deleted_at IS NULL");
+// mysqli_fetch_assoc = untuk menjadikan hasil query menjadi sebuah data (object, array)
+// $rowUser = mysqli_fetch_assoc($queryUser);
 
-// Periksa apakah query berhasil dijalankan
-if (!$queryContact) {
-    die("Query gagal: " . mysqli_error($koneksi));
-}
-
-// Jika parameter ?delete ada
+//jika parameternya ada ?delete-nilai param
 if (isset($_GET['delete'])) {
-    $id = $_GET['delete']; // Mengambil nilai parameter
+    $id = $_GET['delete']; //mengambil nilai param
 
-    // Pastikan id yang diterima valid untuk menghindari SQL Injection
-    $id = mysqli_real_escape_string($koneksi, $id);
-
-    // Jalankan query delete
+    //query / perintah hapus
     $delete = mysqli_query($koneksi, "DELETE FROM contact WHERE id ='$id'");
-
-    // Periksa apakah query delete berhasil
-    if ($delete) {
-        header("location:contact.php?hapus=berhasil");
-        exit(); // Hentikan eksekusi setelah redirect
-    } else {
-        echo "Gagal menghapus data: " . mysqli_error($koneksi);
-    }
+    header("location:contact.php?hapus=berhasil");
 }
 ?>
+
 
 
 
@@ -38,7 +25,7 @@ if (isset($_GET['delete'])) {
 <!-- [Head] start -->
 
 <head>
-    <title>User Page</title>
+    <title>Contact Page</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -107,7 +94,7 @@ if (isset($_GET['delete'])) {
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data User</h5>
+                            <h5>Data Contact</h5>
                         </div>
                         <div class="card-body">
                             <?php if (isset($_GET['hapus'])): ?>
@@ -115,9 +102,9 @@ if (isset($_GET['delete'])) {
                                     Data berhasil dihapus
                                 </div>
                             <?php endif ?>
-                            <div align="right" class="mb-3">
+                            <!-- <div align="right" class="mb-3">
                                 <a href="kirim-pesan.php" class="btn btn-primary">Tambah</a>
-                            </div>
+                            </div> -->
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -130,12 +117,8 @@ if (isset($_GET['delete'])) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                                    $rowContacts = [];
-                                    if ($queryContact) {
-                                        $rowContacts = mysqli_fetch_all($queryContact, MYSQLI_ASSOC);
-                                    }
-                                    $no = 1;
+                                    <?php $no = 1;
+                                    $rowContacts = mysqli_fetch_all($queryContact, MYSQLI_ASSOC);
                                     foreach ($rowContacts as $rowContact) { ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
@@ -144,11 +127,8 @@ if (isset($_GET['delete'])) {
                                             <td><?php echo $rowContact['subject'] ?></td>
                                             <td><?php echo $rowContact['message'] ?></td>
                                             <td>
-                                                <a href="kirim-pesan.php?pesanId=<?php echo $rowContact['id'] ?>" class="btn btn-success btn-sm">
-                                                    <span>Balas Pesan</span>
-                                                </a>
-                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="kirim-pesan.php?delete=<?php echo $rowContact['id'] ?>" class="btn btn-danger btn-sm">
-                                                    <span class="tf-icon bx bx-trash"></span>
+                                                <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')" href="contact.php?delete=<?php echo $rowContact['id'] ?>" class="btn btn-danger btn-sm">
+                                                    <span class="tf-icon bx bx-trash">Delete</span>
                                                 </a>
                                             </td>
                                         </tr>

@@ -32,9 +32,10 @@
                     }
                     ?>
 
-              <form action="contact-controller/insert-contact.php" class="row g-lg-3 gy-3">
+              <form  method="POST" action="contact-controller/insert-contact.php" class="row g-lg-3 gy-3">
                 <div class="form-group col-md-6">
                   <input
+                    name="nama"
                     type="text"
                     class="form-control"
                     placeholder="Enter your name"
@@ -42,6 +43,7 @@
                 </div>
                 <div class="form-group col-md-6">
                   <input
+                    name="email"
                     type="email"
                     class="form-control"
                     placeholder="Enter your email"
@@ -49,6 +51,7 @@
                 </div>
                 <div class="form-group col-12">
                   <input
+                    name="subject"
                     type="text"
                     class="form-control"
                     placeholder="Enter subject"
@@ -56,14 +59,14 @@
                 </div>
                 <div class="form-group col-12">
                   <textarea
-                    name=""
+                    name="messsage"
                     rows="4"
                     class="form-control"
                     placeholder="Enter your message"
                   ></textarea>
                 </div>
                 <div class="form-group col-12 d-grid">
-                  <button type="submit" class="btn btn-brand">
+                  <button name="simpan" type="submit" class="btn btn-brand">
                     Contact me
                   </button>
                 </div>

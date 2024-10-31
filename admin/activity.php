@@ -116,7 +116,7 @@ if (isset($_GET['delete'])) {
                                         <tr>
                                             <td><?php echo $no++ ?></td>
                                             <td><?php echo $rowAct['ket_act'] ?></td>
-                                            <td><img src="upload/<?php echo $rowAct['foto'] ?>" alt=""></td>
+                                            <td><img style="width: 200px; height:150px" src="upload/<?php echo $rowAct['foto'] ?>" alt=""></td>
                                             <td>
                                                 <a href="tambah-activity.php?edit=<?php echo $rowAct['id'] ?>" class="btn btn-success btn-sm">
                                                     <i class="ti ti-pencil"></i>

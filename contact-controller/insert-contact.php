@@ -1,8 +1,8 @@
-<?php 
+<?php
 require_once "../admin/koneksi.php";
 
-if (isset($_POST['send-bro'])) {
-    $name = mysqli_real_escape_string($koneksi, $_POST['name']);
+if (isset($_POST['simpan'])) {
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
     $email = htmlspecialchars($_POST['email']);
     $subject = htmlspecialchars($_POST['subject']);
     $message = htmlspecialchars($_POST['message']);
@@ -12,17 +12,11 @@ if (isset($_POST['send-bro'])) {
     if (mysqli_num_rows($select) > 0) {
         header("Location: ../contact.php?status=emailsudahada");
         exit();
-    }else{
-    $insert = mysqli_query($koneksi, "INSERT INTO contact (nama, email, subject, message) VALUES ('$name','$email','$subject','$message')");
-    if ($insert) {
-        header("Location: ../contact.php?status=success");
-        exit();
+    } else {
+        $insert = mysqli_query($koneksi, "INSERT INTO contact (nama, email, subject, message) VALUES ('$nama','$email','$subject','$message')");
+        if ($insert) {
+            header("Location: ../index.php#contact?status=success");
+            exit();
+        }
     }
 }
-
-}
-
-
-
-
-?>

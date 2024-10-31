@@ -118,7 +118,7 @@ if (isset($_GET['delete'])) {
                                             <td><?php echo $no++ ?></td>
                                             <td><?php echo $rowPort['judul_project'] ?></td>
                                             <td><?php echo $rowPort['ket_project'] ?></td>
-                                            <td><img src="upload/<?php echo $rowPort['foto'] ?>" alt=""></td>
+                                            <td><img style="width: 200px; height:100px" src="upload/<?php echo $rowPort['foto'] ?>" alt=""></td>
                                             <td>
                                                 <a href="tambah-portfolio.php?edit=<?php echo $rowPort['id'] ?>" class="btn btn-success btn-sm">
                                                     <i class="ti ti-pencil"></i>

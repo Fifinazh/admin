@@ -1,4 +1,4 @@
-<<?php
+<?php
 session_start();
 include 'koneksi.php';
 
@@ -21,11 +21,11 @@ if (isset($_POST['kirim-bosss']) && isset($_GET['pesanId'])) {
     $balaspesan = $_POST['balaspesan'];
 
     $header = "From: fitrianurzh01@gmail.com" . "\r\n" .
-                "Reply-To: fitrianurzh@gmail.com" . "\r\n" .
-                "Content-Type: text/plain; charset=UTF8" ."\r\n" .
-                "MIME-Version: 1.0" . "\r\n";
-    
-    if(mail($email, $subject, $balaspesan, $header)) {
+        "Reply-To: fitrianurzh@gmail.com" . "\r\n" .
+        "Content-Type: text/plain; charset=UTF8" . "\r\n" .
+        "MIME-Version: 1.0" . "\r\n";
+
+    if (mail($email, $subject, $balaspesan, $header)) {
         echo "Berhasil";
         header("Location: contact-admin.php?status=berhasil-terkirim");
         exit();
@@ -36,6 +36,7 @@ if (isset($_POST['kirim-bosss']) && isset($_GET['pesanId'])) {
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

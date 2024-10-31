@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Okt 2024 pada 23.58
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.0.30
+-- Generation Time: Oct 31, 2024 at 02:01 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `about`
+-- Table structure for table `about`
 --
 
 CREATE TABLE `about` (
@@ -36,7 +36,7 @@ CREATE TABLE `about` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `about`
+-- Dumping data for table `about`
 --
 
 INSERT INTO `about` (`id`, `isi_about`, `foto`, `created_at`, `updated_at`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `about` (`id`, `isi_about`, `foto`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `activity`
+-- Table structure for table `activity`
 --
 
 CREATE TABLE `activity` (
@@ -57,7 +57,7 @@ CREATE TABLE `activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `activity`
+-- Dumping data for table `activity`
 --
 
 INSERT INTO `activity` (`id`, `ket_act`, `foto`, `created_at`, `update_at`) VALUES
@@ -68,7 +68,7 @@ INSERT INTO `activity` (`id`, `ket_act`, `foto`, `created_at`, `update_at`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `contact`
+-- Table structure for table `contact`
 --
 
 CREATE TABLE `contact` (
@@ -78,13 +78,27 @@ CREATE TABLE `contact` (
   `subject` varchar(100) NOT NULL,
   `message` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `deleted_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`id`, `nama`, `email`, `subject`, `message`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(4, 'hana', 'hana@gmail.com', 'zzzz', '', '2024-10-31 00:38:30', '2024-10-31 00:38:30', '0000-00-00'),
+(5, 'naura', 'nau@gmail.com', 'haloo', '', '2024-10-31 00:40:33', '2024-10-31 00:40:33', '0000-00-00'),
+(6, 'dini', 'dini@gmail.com', 'didi', '', '2024-10-31 00:43:06', '2024-10-31 00:43:06', '0000-00-00'),
+(7, 'zxczxc', 'zczxc@gmail.com', 'zzxcc', '', '2024-10-31 00:46:44', '2024-10-31 00:46:44', '0000-00-00'),
+(8, 'll', 'll@gmail.com', '116k,l,', '', '2024-10-31 00:49:33', '2024-10-31 00:49:33', '0000-00-00'),
+(9, 'Fitria', 'dini123@gmail.com', 'Misii', '', '2024-10-31 00:53:28', '2024-10-31 00:53:28', '0000-00-00'),
+(10, 'Aku', 'Admin@gmail.com', 'HALOO', '', '2024-10-31 00:53:50', '2024-10-31 00:53:50', '0000-00-00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `education`
+-- Table structure for table `education`
 --
 
 CREATE TABLE `education` (
@@ -97,7 +111,7 @@ CREATE TABLE `education` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `education`
+-- Dumping data for table `education`
 --
 
 INSERT INTO `education` (`id`, `last_edu`, `level_name`, `isi_edu`, `updated_at`, `created_at`) VALUES
@@ -106,7 +120,7 @@ INSERT INTO `education` (`id`, `last_edu`, `level_name`, `isi_edu`, `updated_at`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `experience`
+-- Table structure for table `experience`
 --
 
 CREATE TABLE `experience` (
@@ -119,7 +133,7 @@ CREATE TABLE `experience` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `experience`
+-- Dumping data for table `experience`
 --
 
 INSERT INTO `experience` (`id`, `nama_exp`, `tempat_exp`, `kegiatan`, `created_at`, `update_at`) VALUES
@@ -130,7 +144,7 @@ INSERT INTO `experience` (`id`, `nama_exp`, `tempat_exp`, `kegiatan`, `created_a
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `home`
+-- Table structure for table `home`
 --
 
 CREATE TABLE `home` (
@@ -144,7 +158,7 @@ CREATE TABLE `home` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `home`
+-- Dumping data for table `home`
 --
 
 INSERT INTO `home` (`id`, `judul_home`, `isi_home`, `nomor_wa`, `wa_link`, `created_at`, `update_at`) VALUES
@@ -153,7 +167,7 @@ INSERT INTO `home` (`id`, `judul_home`, `isi_home`, `nomor_wa`, `wa_link`, `crea
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `portfolio`
+-- Table structure for table `portfolio`
 --
 
 CREATE TABLE `portfolio` (
@@ -166,7 +180,7 @@ CREATE TABLE `portfolio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `portfolio`
+-- Dumping data for table `portfolio`
 --
 
 INSERT INTO `portfolio` (`id`, `judul_project`, `ket_project`, `foto`, `created_at`, `updated_at`) VALUES
@@ -178,7 +192,7 @@ INSERT INTO `portfolio` (`id`, `judul_project`, `ket_project`, `foto`, `created_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -192,7 +206,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `nama`, `email`, `password`, `foto`, `created_at`, `update_at`) VALUES
@@ -205,101 +219,101 @@ INSERT INTO `user` (`id`, `nama`, `email`, `password`, `foto`, `created_at`, `up
 --
 
 --
--- Indeks untuk tabel `about`
+-- Indexes for table `about`
 --
 ALTER TABLE `about`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `activity`
+-- Indexes for table `activity`
 --
 ALTER TABLE `activity`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `contact`
+-- Indexes for table `contact`
 --
 ALTER TABLE `contact`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `education`
+-- Indexes for table `education`
 --
 ALTER TABLE `education`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `experience`
+-- Indexes for table `experience`
 --
 ALTER TABLE `experience`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `home`
+-- Indexes for table `home`
 --
 ALTER TABLE `home`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `portfolio`
+-- Indexes for table `portfolio`
 --
 ALTER TABLE `portfolio`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `about`
+-- AUTO_INCREMENT for table `about`
 --
 ALTER TABLE `about`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `activity`
+-- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `contact`
+-- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `education`
+-- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `experience`
+-- AUTO_INCREMENT for table `experience`
 --
 ALTER TABLE `experience`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `home`
+-- AUTO_INCREMENT for table `home`
 --
 ALTER TABLE `home`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `portfolio`
+-- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
